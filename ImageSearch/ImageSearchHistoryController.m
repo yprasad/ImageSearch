@@ -38,7 +38,7 @@ NSString *const kImageSearchHistoryDataKey = @"kImageSearchHistoryDataKey";
 }
 
 - (void)notificationOfSearch:(NSNotification *)notification {
-  [_searchHistory addObject:[notification userInfo]];
+  [_searchHistory insertObject:[notification userInfo] atIndex:0];
   [_delegate imageSearchHistoryControllerDidUpdate:self];
   [[NSUserDefaults standardUserDefaults] setObject:_searchHistory forKey:kImageSearchHistoryDataKey];
 }

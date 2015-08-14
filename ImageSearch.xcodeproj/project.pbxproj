@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D34F57AF1B7C4CF700C18859 /* ImageSearchDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34F57AE1B7C4CF700C18859 /* ImageSearchDetailViewController.m */; };
+		D352D8811B7D9890002BAC4F /* ImageSearchDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D352D8801B7D9890002BAC4F /* ImageSearchDetailViewController.xib */; };
 		D3C4A7801B796B6B00D06FD8 /* ImageSearchSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C4A77F1B796B6B00D06FD8 /* ImageSearchSearchResultCell.m */; };
 		D3C4A7851B79A37000D06FD8 /* ImageSearchHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C4A7841B79A37000D06FD8 /* ImageSearchHistoryController.m */; };
 		D3CA2E2C1B72DBF800D77292 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CA2E2B1B72DBF800D77292 /* main.m */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		D34F57AD1B7C4CF700C18859 /* ImageSearchDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSearchDetailViewController.h; sourceTree = "<group>"; };
 		D34F57AE1B7C4CF700C18859 /* ImageSearchDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSearchDetailViewController.m; sourceTree = "<group>"; };
+		D352D8801B7D9890002BAC4F /* ImageSearchDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageSearchDetailViewController.xib; sourceTree = "<group>"; };
 		D3C4A77E1B796B6B00D06FD8 /* ImageSearchSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSearchSearchResultCell.h; sourceTree = "<group>"; };
 		D3C4A77F1B796B6B00D06FD8 /* ImageSearchSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSearchSearchResultCell.m; sourceTree = "<group>"; };
 		D3C4A7831B79A37000D06FD8 /* ImageSearchHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSearchHistoryController.h; sourceTree = "<group>"; };
@@ -108,11 +110,14 @@
 		D3CA2E281B72DBF800D77292 /* ImageSearch */ = {
 			isa = PBXGroup;
 			children = (
-				D3CA2E361B72DBF800D77292 /* Images.xcassets */,
 				D3CA2E2D1B72DBF800D77292 /* AppDelegate.h */,
 				D3CA2E2E1B72DBF800D77292 /* AppDelegate.m */,
 				D3D48E161B72F92E00269027 /* AsyncImageView.h */,
 				D3D48E171B72F92E00269027 /* AsyncImageView.m */,
+				D3CA2E361B72DBF800D77292 /* Images.xcassets */,
+				D34F57AD1B7C4CF700C18859 /* ImageSearchDetailViewController.h */,
+				D34F57AE1B7C4CF700C18859 /* ImageSearchDetailViewController.m */,
+				D352D8801B7D9890002BAC4F /* ImageSearchDetailViewController.xib */,
 				D3C4A7831B79A37000D06FD8 /* ImageSearchHistoryController.h */,
 				D3C4A7841B79A37000D06FD8 /* ImageSearchHistoryController.m */,
 				D3CA2E541B72E0E900D77292 /* ImageSearchHistoryViewController.h */,
@@ -132,8 +137,6 @@
 				D3CA2E381B72DBF800D77292 /* LaunchScreen.xib */,
 				D3CA2E331B72DBF800D77292 /* Main.storyboard */,
 				D3CA2E291B72DBF800D77292 /* Supporting Files */,
-				D34F57AD1B7C4CF700C18859 /* ImageSearchDetailViewController.h */,
-				D34F57AE1B7C4CF700C18859 /* ImageSearchDetailViewController.m */,
 			);
 			path = ImageSearch;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				D3CA2E351B72DBF800D77292 /* Main.storyboard in Resources */,
 				D3CA2E3A1B72DBF800D77292 /* LaunchScreen.xib in Resources */,
 				D3CA2E371B72DBF800D77292 /* Images.xcassets in Resources */,
+				D352D8811B7D9890002BAC4F /* ImageSearchDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

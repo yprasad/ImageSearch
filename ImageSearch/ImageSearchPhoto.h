@@ -14,6 +14,6 @@
 @property (nonatomic, readwrite, strong) NSString *thumbnailURLString;
 @property (nonatomic, readwrite, assign) CGSize thumbnailSize;
 @property (nonatomic, readwrite, strong) NSString *urlString;
-
+@property (nonatomic, readwrite, assign) CGSize size;
 
 @end

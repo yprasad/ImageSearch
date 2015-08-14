@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ImageSearchPhoto;
+
 @interface ImageSearchDetailViewController : UIViewController
 
-- (instancetype)initWithImageURL:(NSURL *)URL;
+@property (nonatomic, readwrite, strong) IBOutlet UIScrollView *scrollView;
+
+- (instancetype)initWithPhoto:(ImageSearchPhoto *)photo;
 
 @end

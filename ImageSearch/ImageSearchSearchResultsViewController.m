@@ -155,9 +155,6 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
     NSURL *photoURL = [NSURL URLWithString:photo.thumbnailURLString];
     cell.asyncImageView.image = nil;
     if (![cell.asyncImageView.imageURL isEqual:photoURL]) {
-      if (indexPath.item == 4) {
-        NSLog(@"cell = %@", cell);
-      }
       cell.asyncImageView.imageURL = photoURL;
     }
   } else {
@@ -172,32 +169,12 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
 
 #pragma mark <UICollectionViewDelegate>
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-
-// Uncomment this method to specify if the specified item should be selected
-//- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   ImageSearchPhoto *photo = [_searchResults objectAtIndex:indexPath.item];
-  ImageSearchDetailViewController *detailViewController = [[ImageSearchDetailViewController alloc] initWithImageURL:[NSURL URLWithString:photo.urlString]];
+  ImageSearchDetailViewController *detailViewController = [[ImageSearchDetailViewController alloc] initWithPhoto:photo];
   
   [self.navigationController pushViewController:detailViewController animated:YES];
-}
-
-
-
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
 }
 
 @end

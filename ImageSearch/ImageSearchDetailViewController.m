@@ -8,21 +8,21 @@
 
 #import "ImageSearchDetailViewController.h"
 #import "AsyncImageView.h"
+#import "ImageSearchPhoto.h"
 
-@interface ImageSearchDetailViewController ()
+@interface ImageSearchDetailViewController () <UIScrollViewDelegate>
 @property (nonatomic, readwrite, strong) AsyncImageView *imageView;
-@property (nonatomic, readwrite, strong) NSURL *url;
+@property (nonatomic, readwrite, strong) ImageSearchPhoto *photo;
 @end
 
 @implementation ImageSearchDetailViewController
 
-- (instancetype)initWithImageURL:(NSURL *)URL
+- (instancetype)initWithPhoto:(ImageSearchPhoto *)photo
 {
-  self = [super initWithNibName:nil bundle:nil];
+  self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
   
   if (self != nil) {
-    _url = URL;
-    
+    _photo = photo;
     _imageView = [[AsyncImageView alloc] initWithFrame:CGRectZero];
     _imageView.showActivityIndicator = YES;
     _imageView.activityIndicatorStyle = UIActivityIndicatorViewStyleWhiteLarge;
@@ -34,23 +34,33 @@
 
 - (void)viewDidLoad
 {
-  self.view.backgroundColor = [UIColor blackColor];
-  _imageView.frame = self.view.bounds;
-  [self.view addSubview:_imageView];
+  _scrollView.frame = self.view.bounds;
+  _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  _scrollView.backgroundColor = [UIColor blackColor];
+  _scrollView.minimumZoomScale=0.5;
+  _scrollView.maximumZoomScale=6.0;
+  
+  [_scrollView addSubview:_imageView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-  _imageView.imageURL = _url;
+  _imageView.frame = _scrollView.bounds;
+  _imageView.imageURL = [NSURL URLWithString:_photo.urlString];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [coordinator animateAlongsideTransition:^(id <UIViewControllerTransitionCoordinatorContext>context) {
-    _imageView.frame = self.view.bounds;
+    _scrollView.frame = self.view.bounds;
   } completion:^(id <UIViewControllerTransitionCoordinatorContext>context){
     
   }];
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+  return _imageView;
 }
 
 @end

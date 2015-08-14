@@ -82,7 +82,7 @@
               photo.thumbnailURLString = [photoResult valueForKeyPath:@"tbUrl"];
               photo.urlString = [photoResult valueForKeyPath:@"url"];
               photo.thumbnailSize = CGSizeMake([[photoResult valueForKeyPath:@"tbWidth"] integerValue], [[photoResult valueForKeyPath:@"tbHeight"] integerValue]);
-              
+              photo.size = CGSizeMake([[photoResult valueForKeyPath:@"width"] integerValue], [[photoResult valueForKeyPath:@"height"] integerValue]);
               [photosArray addObject:photo];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
