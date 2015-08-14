@@ -76,7 +76,6 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
                                   }
                                   noMoreImagesCallback:^{
                                     [self _setShowActivityIndicatorView:NO];
-                                    
                                     _noMoreImages = YES;
                                   }];
 }
