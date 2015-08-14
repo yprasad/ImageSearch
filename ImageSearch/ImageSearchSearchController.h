@@ -12,22 +12,16 @@ static NSString *kSearchNotificationName = @"kSearchNotificationName";
 static NSString *kSearchNotificationSearchStringKey = @"kSearchNotificationSearchStringKey";
 static NSString *kSearchNotificationDateKey = @"kSearchNotificationDateKey";
 
-@protocol ImageSearchSearchControllerDelegate;
+
+typedef void (^SearchControllerSuccessCallback)(NSArray *results);
+typedef void (^SearchControllerFailureCallback)(NSError *error);
+typedef void (^SearchControllerNoMoreImagesCallback)();
 
 @interface ImageSearchSearchController : NSObject
 
-@property (nonatomic, readwrite, weak) id<ImageSearchSearchControllerDelegate> delegate;
-
-- (void)searchGoogleImagesWithString:(NSString *)searchString page:(NSUInteger)pageNumber;
-
-@end
-
-@protocol ImageSearchSearchControllerDelegate <NSObject>
-
-- (void)imageSearchSearchController:(ImageSearchSearchController *)controller didFinishWithResults:(NSArray *)results;
-- (void)imageSearchSearchControllerNoMoreImages:(ImageSearchSearchController *)controller;
-- (void)imageSearchSearchController:(ImageSearchSearchController *)controller didFailWithError:(NSError *)error;
-- (void)imageSearchSearchControllerWillBeginSearch:(ImageSearchSearchController *)controller;
-
+- (void)searchGoogleImagesWithString:(NSString *)searchString page:(NSUInteger)pageNumber
+                     successCallback:(SearchControllerSuccessCallback)successCallback
+                     failureCallback:(SearchControllerFailureCallback)failureCallback
+                noMoreImagesCallback:(SearchControllerNoMoreImagesCallback)noMoreImagesCallback;
 
 @end

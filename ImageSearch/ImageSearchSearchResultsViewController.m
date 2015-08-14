@@ -16,7 +16,7 @@
 #define kCollectionViewDimension 100
 #define kCollectionViewInset 20
 
-@interface ImageSearchSearchResultsViewController () <ImageSearchSearchControllerDelegate, UICollectionViewDelegateFlowLayout>
+@interface ImageSearchSearchResultsViewController () <UICollectionViewDelegateFlowLayout>
 {
   ImageSearchSearchController *_searchController;
   NSMutableArray *_searchResults;
@@ -43,14 +43,40 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
   _noMoreImages = NO;
   _searchString = searchString;
   
-  [_searchController searchGoogleImagesWithString:searchString page:_page];
-  _searchController.delegate = self;
+  [self _searchWithString:searchString page:_page];
+}
+
+- (void)_searchWithString:(NSString *)searchString page:(NSUInteger)page
+{
+  [_searchController searchGoogleImagesWithString:searchString
+                                             page:_page
+                                  successCallback:^(NSArray *results) {
+                                    [_activityIndicatorView stopAnimating];
+                                    [_activityIndicatorView removeFromSuperview];
+                                    _activityIndicatorView = nil;
+                                    
+                                    if (!_searchResults) {
+                                      _searchResults = [NSMutableArray new];
+                                    }
+                                    
+                                    NSLog(@"%zd items.... ", [_searchResults count]);
+                                    [_searchResults addObjectsFromArray:results];
+                                    NSLog(@"..... to %zd items, reloading", [_searchResults count]);
+
+                                    [self.collectionView reloadData];
+                                  }
+                                  failureCallback:^(NSError *error) {
+                                    NSLog(@"search failed with error %@", error);
+                                  }
+                                  noMoreImagesCallback:^{
+                                    _noMoreImages = YES;
+                                  }];
 }
 
 - (void)fetchMoreImages
 {
   _page++;
-  [_searchController searchGoogleImagesWithString:_searchString page:_page];
+  [self _searchWithString:_searchString page:_page];
 }
 
 - (void)setShowActivityIndicatorView:(BOOL)showActivityIndicatorView
@@ -121,6 +147,9 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
     NSURL *photoURL = [NSURL URLWithString:photo.thumbnailURLString];
     cell.asyncImageView.image = nil;
     if (![cell.asyncImageView.imageURL isEqual:photoURL]) {
+      if (indexPath.item == 4) {
+        NSLog(@"cell = %@", cell);
+      }
       cell.asyncImageView.imageURL = photoURL;
     }
   } else {
@@ -161,46 +190,6 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
 // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
-}
- 
-
-#pragma mark <ImageSearchSearchControllerDelegate>
-
-- (void)imageSearchSearchController:(ImageSearchSearchController *)controller didFinishWithResults:(NSArray *)results
-{
-  [_activityIndicatorView stopAnimating];
-  [_activityIndicatorView removeFromSuperview];
-  _activityIndicatorView = nil;
-  
-  if (!_searchResults) {
-    _searchResults = [NSMutableArray new];
-  }
-  
-//  NSMutableArray *addedIndexPaths = [NSMutableArray new];
-//  for (ImageSearchPhoto *photo in results) {
-//    [_searchResults addObject:photo];
-//    [addedIndexPaths addObject:[NSIndexPath indexPathForItem:[_searchResults count] - 1 inSection:0]];
-//  }
-//  
-//  [self.collectionView insertItemsAtIndexPaths:addedIndexPaths];
-  
-  [_searchResults addObjectsFromArray:results];
-  [self.collectionView reloadData];
-}
-
-- (void)imageSearchSearchController:(ImageSearchSearchController *)controller didFailWithError:(NSError *)error
-{
-  NSLog(@"search failed with error %@", error);
-}
-
-- (void)imageSearchSearchControllerWillBeginSearch:(ImageSearchSearchController *)controller
-{
-  
-}
-
-- (void)imageSearchSearchControllerNoMoreImages:(ImageSearchSearchController *)controller
-{
-  _noMoreImages = YES;
 }
 
 @end

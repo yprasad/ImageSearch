@@ -46,7 +46,11 @@
   return self;
 }
 
-- (void)searchGoogleImagesWithString:(NSString *)searchString page:(NSUInteger)pageNumber {
+- (void)searchGoogleImagesWithString:(NSString *)searchString page:(NSUInteger)pageNumber
+                     successCallback:(SearchControllerSuccessCallback)successCallback
+                     failureCallback:(SearchControllerFailureCallback)failureCallback
+                noMoreImagesCallback:(SearchControllerNoMoreImagesCallback)noMoreImagesCallback
+{
   NSString *searchURLString = [NSString stringWithFormat:@"https://ajax.googleapis.com/ajax/services/search/images"];
 
   searchURLString = [searchURLString URLStringByAppendingQueryString:[[NSString stringWithFormat:@"q=%@", searchString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -56,20 +60,18 @@
   searchURLString = [searchURLString URLStringByAppendingQueryString:[[NSString stringWithFormat:@"start=%lu", pageNumber * kNumberPerPage] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   NSURL *searchURL = [NSURL URLWithString:searchURLString];
   
-  [self.delegate imageSearchSearchControllerWillBeginSearch:self];
-
   dispatch_async(_workerQueue, ^{
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:searchURL] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
       if (error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-          [self.delegate imageSearchSearchController:self didFailWithError:error];
+          failureCallback(error);
         });
       } else {
         NSError *localError = nil;
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&localError];
         if (localError != nil) {
           dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate imageSearchSearchController:self didFailWithError:error];
+            failureCallback(error);
           });
         } else {
           NSMutableArray *photosArray = [NSMutableArray new];
@@ -84,11 +86,11 @@
               [photosArray addObject:photo];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-            [self.delegate imageSearchSearchController:self didFinishWithResults:photosArray];
+              successCallback(photosArray);
             });
           } else{
             dispatch_async(dispatch_get_main_queue(), ^{
-              [self.delegate imageSearchSearchControllerNoMoreImages:self];
+              noMoreImagesCallback();
             });
           }
         }
