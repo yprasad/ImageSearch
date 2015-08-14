@@ -15,6 +15,7 @@
 
 #define kCollectionViewDimension 100
 #define kCollectionViewInset 20
+#define kCollectionViewReloadTimeInSeconds 2
 
 @interface ImageSearchSearchResultsViewController () <UICollectionViewDelegateFlowLayout>
 {
@@ -24,6 +25,8 @@
   NSString *_searchString;
   BOOL _noMoreImages;
   UIActivityIndicatorView *_activityIndicatorView;
+  NSDate *_currentReloadDate;
+  UIAlertController *_errorAlertController;
 }
 @end
 
@@ -51,24 +54,29 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
   [_searchController searchGoogleImagesWithString:searchString
                                              page:_page
                                   successCallback:^(NSArray *results) {
-                                    [_activityIndicatorView stopAnimating];
-                                    [_activityIndicatorView removeFromSuperview];
-                                    _activityIndicatorView = nil;
+                                    [self setShowActivityIndicatorView:NO];
                                     
                                     if (!_searchResults) {
                                       _searchResults = [NSMutableArray new];
                                     }
-                                    
-                                    NSLog(@"%zd items.... ", [_searchResults count]);
-                                    [_searchResults addObjectsFromArray:results];
-                                    NSLog(@"..... to %zd items, reloading", [_searchResults count]);
 
+                                    [_searchResults addObjectsFromArray:results];
                                     [self.collectionView reloadData];
                                   }
                                   failureCallback:^(NSError *error) {
                                     NSLog(@"search failed with error %@", error);
+                                    if (_errorAlertController == nil) {
+                                      _errorAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", @"Title for error alert") message:[error localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+                                      UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK button") style:UIAlertActionStyleDefault handler:nil];
+                                      [_errorAlertController addAction:defaultAction];
+                                      [self presentViewController:_errorAlertController animated:YES completion:^{
+                                        _errorAlertController = nil;
+                                      }];
+                                    }
                                   }
                                   noMoreImagesCallback:^{
+                                    [self setShowActivityIndicatorView:NO];
+                                    
                                     _noMoreImages = YES;
                                   }];
 }

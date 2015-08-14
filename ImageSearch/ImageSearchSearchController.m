@@ -71,7 +71,7 @@
         NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&localError];
         if (localError != nil) {
           dispatch_async(dispatch_get_main_queue(), ^{
-            failureCallback(error);
+            failureCallback(localError);
           });
         } else {
           NSMutableArray *photosArray = [NSMutableArray new];
