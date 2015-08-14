@@ -24,6 +24,8 @@ static NSString * const historyReuseIdentifier = @"HistoryCell";
   
   self.title = NSLocalizedString(@"Search History", @"Title for the search history pane");
   [[ImageSearchHistoryController sharedManager] setDelegate:self];
+  
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"Clear history button") style:UIBarButtonItemStylePlain target:self action:@selector(clearHistory)];
   [self.tableView reloadData];
 }
 
@@ -57,6 +59,12 @@ static NSString * const historyReuseIdentifier = @"HistoryCell";
 
 - (NSArray *)searchHistory {
   return [[ImageSearchHistoryController sharedManager] searchHistory];
+}
+
+- (void)clearHistory
+{
+  [[ImageSearchHistoryController sharedManager] clearHistory];
+  [self.tableView reloadData];
 }
 
 #pragma mark ImageSearchHistoryControllerDelegate

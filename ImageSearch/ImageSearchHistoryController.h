@@ -16,6 +16,7 @@
 @property (nonatomic, readwrite, weak) id<ImageSearchHistoryControllerDelegate> delegate;
 
 + (id)sharedManager;
+- (void)clearHistory;
 
 @end
 

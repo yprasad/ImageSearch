@@ -9,6 +9,8 @@
 #import "ImageSearchHistoryController.h"
 #import "ImageSearchSearchController.h"
 
+NSString *const kImageSearchHistoryDataKey = @"kImageSearchHistoryDataKey";
+
 @interface ImageSearchHistoryController ()
 @property (nonatomic, readwrite, strong) NSMutableArray *searchHistory;
 @end
@@ -26,7 +28,10 @@
 
 - (id)init {
   if (self = [super init]) {
-    _searchHistory = [NSMutableArray new];
+    _searchHistory = [[NSUserDefaults standardUserDefaults] objectForKey:kImageSearchHistoryDataKey];
+    if (!_searchHistory) {
+      _searchHistory = [NSMutableArray new];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationOfSearch:) name:kSearchNotificationName object:nil];
   }
   return self;
@@ -35,6 +40,13 @@
 - (void)notificationOfSearch:(NSNotification *)notification {
   [_searchHistory addObject:[notification userInfo]];
   [_delegate imageSearchHistoryControllerDidUpdate:self];
+  [[NSUserDefaults standardUserDefaults] setObject:_searchHistory forKey:kImageSearchHistoryDataKey];
+}
+
+- (void)clearHistory
+{
+  [_searchHistory removeAllObjects];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:kImageSearchHistoryDataKey];
 }
 
 @end

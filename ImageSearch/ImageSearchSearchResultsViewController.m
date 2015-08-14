@@ -54,7 +54,7 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
   [_searchController searchGoogleImagesWithString:searchString
                                              page:_page
                                   successCallback:^(NSArray *results) {
-                                    [self setShowActivityIndicatorView:NO];
+                                    [self _setShowActivityIndicatorView:NO];
                                     
                                     if (!_searchResults) {
                                       _searchResults = [NSMutableArray new];
@@ -75,19 +75,19 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
                                     }
                                   }
                                   noMoreImagesCallback:^{
-                                    [self setShowActivityIndicatorView:NO];
+                                    [self _setShowActivityIndicatorView:NO];
                                     
                                     _noMoreImages = YES;
                                   }];
 }
 
-- (void)fetchMoreImages
+- (void)_fetchMoreImages
 {
   _page++;
   [self _searchWithString:_searchString page:_page];
 }
 
-- (void)setShowActivityIndicatorView:(BOOL)showActivityIndicatorView
+- (void)_setShowActivityIndicatorView:(BOOL)showActivityIndicatorView
 {
   if (showActivityIndicatorView && ![_activityIndicatorView superview]) {
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -114,14 +114,14 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [self setShowActivityIndicatorView:YES];
+  [self _setShowActivityIndicatorView:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
   if ([_searchResults count] > 0) {
     [self.collectionView reloadData];
-    [self setShowActivityIndicatorView:NO];
+    [self _setShowActivityIndicatorView:NO];
   }
 }
 
@@ -163,7 +163,7 @@ static NSString * const reuseIdentifier = @"ImageSearchResultCell";
   } else {
     if (!_noMoreImages) {
       // Fetch more images if there are any
-      [self fetchMoreImages];
+      [self _fetchMoreImages];
     }
   }
   
