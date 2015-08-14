@@ -92,8 +92,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fjh-Fg-wfb">
-                                <rect key="frame" x="153" y="212" width="304" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fjh-Fg-wfb">
+                                <rect key="frame" x="154" y="166" width="304" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="304" id="ot3-S4-FjO"/>
                                     <constraint firstAttribute="width" constant="304" id="vFx-3c-TIP"/>
@@ -104,8 +104,8 @@
                                     <outlet property="delegate" destination="XPd-Qh-Mpa" id="nkO-Si-gSw"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oiv-jU-wNt">
-                                <rect key="frame" x="274" y="250" width="52" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oiv-jU-wNt">
+                                <rect key="frame" x="275" y="204" width="52" height="30"/>
                                 <state key="normal" title="Search!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -113,13 +113,22 @@
                                     <action selector="searchButtonTapped:" destination="XPd-Qh-Mpa" eventType="touchUpInside" id="fW1-PM-cFV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="logo11w" translatesAutoresizingMaskIntoConstraints="NO" id="WAn-pB-ytj">
+                                <rect key="frame" x="224" y="102" width="155" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="Jvk-Tu-dRu"/>
+                                    <constraint firstAttribute="height" constant="61" id="Thw-1E-TbQ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="Oiv-jU-wNt" secondAttribute="centerX" id="LNC-ji-7rt"/>
-                            <constraint firstItem="fjh-Fg-wfb" firstAttribute="top" secondItem="Dnq-em-wea" secondAttribute="top" constant="127" id="TEP-yW-mmb"/>
+                            <constraint firstItem="fjh-Fg-wfb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Dnq-em-wea" secondAttribute="top" constant="127" id="TEP-yW-mmb"/>
                             <constraint firstAttribute="centerX" secondItem="fjh-Fg-wfb" secondAttribute="centerX" id="U2D-kh-rRb"/>
+                            <constraint firstItem="fjh-Fg-wfb" firstAttribute="leading" secondItem="WAn-pB-ytj" secondAttribute="trailing" constant="-225" id="bVc-pk-LGD"/>
                             <constraint firstItem="Oiv-jU-wNt" firstAttribute="top" secondItem="fjh-Fg-wfb" secondAttribute="bottom" constant="8" id="nrc-HX-Gab"/>
+                            <constraint firstItem="fjh-Fg-wfb" firstAttribute="top" secondItem="WAn-pB-ytj" secondAttribute="bottom" constant="8" id="wea-WQ-Nov"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sGb-x4-N6n"/>
@@ -189,4 +198,7 @@
             <point key="canvasLocation" x="0.0" y="-159"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo11w" width="538" height="190"/>
+    </resources>
 </document>
