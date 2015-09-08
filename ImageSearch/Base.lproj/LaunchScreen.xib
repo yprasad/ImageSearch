@@ -16,18 +16,9 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uber-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Qoh-pK-vh4">
-                    <rect key="frame" x="120" y="120" width="240" height="240"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="240" id="Mvx-UJ-wjp"/>
-                        <constraint firstAttribute="height" constant="240" id="ORs-cj-q9K"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="Qoh-pK-vh4" secondAttribute="centerX" id="8MB-I7-jhu"/>
-                <constraint firstAttribute="centerY" secondItem="Qoh-pK-vh4" secondAttribute="centerY" id="BwV-m2-OmT"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
@@ -37,7 +28,4 @@
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
-    <resources>
-        <image name="uber-logo" width="333" height="333"/>
-    </resources>
 </document>
